@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Adventure Training</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #fdf6ff;
+      --accent1: #caa8f5;
+      --accent2: #f7a7c4;
+      --accent3: #a2d2ff;
+      --accent4: #b5ead7;
+      --text: #3d2c4d;
+      --shadow: rgba(0, 0, 0, .1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif}
+    body{background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem}
+    .deck{width:100%;max-width:780px;position:relative}
+    .slide{display:none;animation:fade .6s}
+    .slide.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    h1,h2,h3{line-height:1.3;margin-bottom:.6em}
+    ul{margin-left:1.3em}
+    .btn{background:var(--accent1);color:#fff;border:none;padding:.6rem 1.2rem;border-radius:30px;font-size:1rem;cursor:pointer;box-shadow:0 4px 10px var(--shadow);transition:.3s}
+    .btn:hover{transform:translateY(-2px)}
+    .nav{display:flex;justify-content:space-between;margin-top:1.5rem}
+    .center{text-align:center}
+    .emoji{font-size:1.4em;margin-right:.3em}
+    .box{background:#fff;border-radius:15px;padding:1.2rem 1.5rem;margin:.8rem 0;box-shadow:0 2px 8px var(--shadow)}
+  </style>
+</head>
+<body>
+
+<div class="deck">
+  <!-- Slide 1: Title -->
+  <div class="slide active center">
+    <h1>🌸 AI Adventure Training 🌸</h1>
+    <p style="font-size:1.2em;margin-top:1em">An exciting journey into Artificial Intelligence!<br/>Made for Daughter, with love & code.</p>
+    <button class="btn" onclick="next()">Let’s Begin ✨</button>
+  </div>
+
+  <!-- Slide 2: Section 1 Intro -->
+  <div class="slide">
+    <h2><span class="emoji">👋</span> Section 1: Introduction to AI – The Starting Point</h2>
+    <div class="box">
+      <strong>English for Daughter:</strong> Hi [Daughter's Name]! Get ready for an super exciting adventure into the world of Artificial Intelligence (AI)! You've already tried making games with ChatGPT, which is awesome! Now, let's explore even more about how AI works and how you can use it to create cool stuff.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 3: What is AI -->
+  <div class="slide">
+    <h2><span class="emoji">🤖</span> What is AI?</h2>
+    <div class="box">
+      Imagine a computer that can "think" and "learn" like people do! That's Artificial Intelligence. It's like a super-smart robot brain inside a computer. AI helps computers do things like understand what you say, recognize faces in photos, or even play games! You might already be using AI without even knowing it! For example, when you ask your phone a question, or when a website suggests a video you might like, or even when you were generating games with ChatGPT, that's AI at work!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 4: Why is AI cool -->
+  <div class="slide">
+    <h2><span class="emoji">✨</span> Why is AI cool?</h2>
+    <div class="box">
+      AI is super cool because it's like a magical helper for your imagination!
+      <ul>
+        <li><strong>Creativity:</strong> You can use AI to help you write amazing stories, draw fantastic pictures, or even compose music!</li>
+        <li><strong>Problem-solving:</strong> AI can help us solve tricky puzzles and big problems, like how to make cars drive themselves safely or how to predict the weather.</li>
+        <li><strong>Games:</strong> As you know, AI can help create endless virtual worlds in games like Minecraft, or make game characters smarter and more challenging. It can even beat human champions at games like Chess or Jeopardy! It's all about making things more fun and interesting!</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 5: Section 2 Intro -->
+  <div class="slide">
+    <h2><span class="emoji">🧠</span> Section 2: AI Fundamentals – Understanding the Core Ideas</h2>
+    <div class="box">
+      <strong>English for Daughter:</strong> Let's uncover some of AI's secret ingredients!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 6: Machine Learning -->
+  <div class="slide">
+    <h2><span class="emoji">🐣</span> What is Machine Learning?</h2>
+    <div class="box">
+      Machine Learning (ML) is how AI gets smart! Think of it like teaching a pet a new trick, or how you learn from experience. Just like you learn to ride a bike by practicing a lot, AI learns by looking at lots and lots of examples. It's about computers learning from data without being told every single step.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 7: Data -->
+  <div class="slide">
+    <h2><span class="emoji">📊</span> Data, Data Everywhere!</h2>
+    <div class="box">
+      What kind of "stuff" does AI look at? AI learns from "data," which is just information! It can be all sorts of stuff like:
+      <ul>
+        <li>Pictures: Like all the photos of cats and dogs on the internet!</li>
+        <li>Words: Like all the books and articles ever written!</li>
+        <li>Numbers: Like how many times a particular game character wins a level! The more good "stuff" (data) AI looks at, the smarter it gets!</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 8: Algorithms -->
+  <div class="slide">
+    <h2><span class="emoji">📜</span> AI's Secret Rules (Algorithms)</h2>
+    <div class="box">
+      How AI knows what to do. Algorithms are like a set of secret instructions or recipes that AI follows. If you want to bake cookies, you follow a recipe, right? AI follows algorithms to know how to sort pictures, suggest videos, or even make your game characters move around.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 9: Training & Predicting -->
+  <div class="slide">
+    <h2><span class="emoji">🏋️‍♀️</span> Practice Makes Perfect (Training & Predicting)</h2>
+    <div class="box">
+      <strong>Training:</strong> This is when we show AI lots of data, and it "practices" learning from it. It looks for patterns and connections, just like you practice your favorite game to get better.<br/>
+      <strong>Predicting:</strong> Once AI has practiced enough, it can "guess" or "predict" things about new information. For example, if it's seen lots of pictures of different plants, it might be able to predict how tall a new plant will grow.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 10: Fairness -->
+  <div class="slide">
+    <h2><span class="emoji">⚖️</span> Being Fair with AI</h2>
+    <div class="box">
+      Making sure AI is kind and doesn't make unfair choices. It's super important that AI is fair and kind, just like you are! Sometimes, if the data we use to teach AI isn't fair, the AI might learn to make unfair choices. So, we need to be careful and make sure AI is taught with lots of different, fair information so it doesn't accidentally do anything unkind or biased.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 11: Practice Quiz -->
+  <div class="slide">
+    <h2><span class="emoji">🕵️‍♀️</span> Let's Practice!</h2>
+    <div class="box">
+      <strong>"Spot the AI" Game:</strong> Look around your house! Where do you think AI might be hiding? (Hint: Your tablet, smart speaker, or even a robot vacuum cleaner!)<br/><br/>
+      <strong>Quick Quiz:</strong>
+      <ul>
+        <li>What is the "stuff" AI learns from called? <strong>(A: Data)</strong></li>
+        <li>What are AI's "secret rules" called? <strong>(A: Algorithms)</strong></li>
+        <li>When AI practices learning, what is that called? <strong>(A: Training)</strong></li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 12: Section 3 Intro -->
+  <div class="slide">
+    <h2><span class="emoji">🎨</span> Section 3: Playing with AI – Hands-on Exploration</h2>
+    <div class="box">
+      <strong>English for Daughter:</strong> This is where the real fun begins! Let's get creative with AI!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 13: Chatting Smarter -->
+  <div class="slide">
+    <h2><span class="emoji">💬</span> Chatting Smarter with AI</h2>
+    <div class="box">
+      You've used chatbots like ChatGPT to generate games, but let's make it even more fun!<br/>
+      <strong>Fun ways to ask questions to AI chatbots:</strong>
+      <ul>
+        <li>Pretend AI is a character: "Hey, magical genie, tell me a story about a brave knight and a grumpy dragon!"</li>
+        <li>Tell it what you want it to be: "You are a creative writer. Help me invent a new alien creature for my game, with special powers and a funny name."</li>
+        <li>Ask it to make up stories, write poems, or create characters for games! Try asking it to write a silly poem about your pet, or create a description for a new character in your favorite video game.</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 14: Making Art -->
+  <div class="slide">
+    <h2><span class="emoji">🖼️</span> Making Art with AI!</h2>
+    <div class="box">
+      Imagine telling a computer to draw anything you can dream up! That's what AI image generation does!<br/>
+      <strong>How to tell AI what pictures to draw for you:</strong>
+      <ul>
+        <li>Be descriptive! Instead of "draw a dog," try "draw a fluffy golden retriever wearing sunglasses, riding a skateboard in space!"</li>
+        <li>Use fun words! The more detail you give, the more amazing the picture will be. Think about colors, moods, and actions.</li>
+        <li>You can even experiment with different styles like "cartoon," "photorealistic," or "painted like a masterpiece".</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 15: Try This -->
+  <div class="slide">
+    <h2><span class="emoji">🎲</span> Try This!</h2>
+    <div class="box">
+      <strong>Image Creation Contest:</strong> Pick a fun theme (like "Underwater Robot Kingdom" or "Magical Forest Animals") and challenge yourself to create the most imaginative image using an AI image generator (like DALL-E or Midjourney if you have access, or even a simpler online tool).<br/><br/>
+      <strong>"Improve this Prompt" Game:</strong>
+      <ul>
+        <li>For a chatbot: Take a simple prompt like "Write a story." How can you make it better and more fun? (e.g., "Write a funny adventure story about a squirrel who becomes a superhero, set in a giant treehouse!")</li>
+        <li>For an image generator: How can you make "Draw a car" into something super creative? (e.g., "Draw a futuristic flying car made of shiny chrome, zooming through a city of neon lights at night, in a cyberpunk style!")</li>
+      </ul>
+      <strong>Show and Tell:</strong> Share your AI stories, poems, or artwork with your family!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 16: Section 4 Intro -->
+  <div class="slide">
+    <h2><span class="emoji">🔍</span> Section 4: How AI Learns – A Glimpse Behind the Scenes</h2>
+    <div class="box">
+      <strong>English for Daughter:</strong> Want to know a secret? AI can learn new tricks just like you do!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 17: Supervised Learning -->
+  <div class="slide">
+    <h2><span class="emoji">👩‍🏫</span> Teaching AI New Tricks</h2>
+    <div class="box">
+      How AI learns from examples, like you learn from your teachers! One big way AI learns is called "supervised learning." It's like when your teacher shows you examples of math problems and the correct answers, and you learn how to solve them. AI is shown lots of examples with the right answers, and it slowly figures out the patterns and rules all by itself!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 18: Classification -->
+  <div class="slide">
+    <h2><span class="emoji">🧸</span> Sorting Things Out (Classification)</h2>
+    <div class="box">
+      How AI puts things into groups (like sorting toys). Imagine you have a big box of toys, and you want to sort them into groups: all the cars here, all the action figures there. That's what classification is for AI!
+      <ul>
+        <li>AI can sort emails into "important" or "junk mail".</li>
+        <li>It can sort pictures into "dogs" or "cats".</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 19: Regression -->
+  <div class="slide">
+    <h2><span class="emoji">📏</span> Guessing Numbers (Regression)</h2>
+    <div class="box">
+      How AI can try to guess things like how tall a plant will grow. Regression is when AI tries to guess a number!
+      <ul>
+        <li>Like how a weather app guesses what the temperature will be tomorrow.</li>
+        <li>Or if you give AI lots of info about different plants, it might be able to guess how tall a new plant will grow.</li>
+        <li>It can also guess how much a house might cost based on its size and where it is.</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 20: Teachable Machine -->
+  <div class="slide">
+    <h2><span class="emoji">🛠️</span> "Teachable Machine" Fun! (Hands-on Project)</h2>
+    <div class="box">
+      Guess what? You can teach your own AI without any coding! Google has a cool tool called Teachable Machine. It's super easy to use:<br/>
+      <strong>How it works:</strong> You show it examples (like different faces or hand gestures), and it learns to recognize them!<br/>
+      <strong>Simple Project Idea:</strong>
+      <ul>
+        <li>"Train your AI to recognize your smile!" Take pictures of yourself smiling and not smiling. Then see if the AI can tell the difference!</li>
+        <li>Or try "different hand gestures." Teach it to recognize a "thumbs up" versus a "peace sign"!</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 21: Let's Practice TM -->
+  <div class="slide">
+    <h2><span class="emoji">✅</span> Let's Practice!</h2>
+    <div class="box">
+      Complete a Teachable Machine project! Show your family how you trained your AI and what cool trick it can do!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 22: Section 5 Intro -->
+  <div class="slide">
+    <h2><span class="emoji">🧱</span> Section 5: Taking the Reins – Introduction to AI with Code</h2>
+    <div class="box">
+      <strong>English for Daughter:</strong> If you loved teaching your AI tricks, imagine building your own AI from scratch!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 23: Why Code -->
+  <div class="slide">
+    <h2><span class="emoji">💻</span> Why Learn to Code for AI?</h2>
+    <div class="box">
+      Learning to code for AI is like unlocking superpowers! It lets you build anything you imagine—from your own smart games to tools that solve real-world problems. It gives you even more control over how AI works.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 24: Meet Python -->
+  <div class="slide">
+    <h2><span class="emoji">🐍</span> Meet Python! (A friendly programming language)</h2>
+    <div class="box">
+      The best language for building AI is called Python. It's known for being friendly and easier for beginners to learn than some other coding languages!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 25: What is Coding -->
+  <div class="slide">
+    <h2><span class="emoji">📝</span> What is Coding?</h2>
+    <div class="box">
+      Coding is like writing instructions for a computer in a language it understands. Just like you give instructions to your friends, you give instructions to a computer to make it do things.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 26: First Steps -->
+  <div class="slide">
+    <h2><span class="emoji">👟</span> First Steps in Python</h2>
+    <div class="box">
+      You can start with really simple commands!
+      <ul>
+        <li><strong>Variables:</strong> Imagine a box where you can store information, like my_name = "Anna" or my_age = 12.</li>
+        <li><strong>Simple Commands:</strong> Like print("Hello, World!") which makes the computer say "Hello, World!"</li>
+        <li><strong>Where to learn:</strong> You can find fun, beginner-friendly interactive tutorials online! Check out Codecademy Kids, Scratch, or simple Python online environments. These places let you drag and drop code or type simple commands to see what happens right away!</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 27: Libraries -->
+  <div class="slide">
+    <h2><span class="emoji">🧩</span> Building Blocks (Libraries)</h2>
+    <div class="box">
+      How programmers share code. Imagine you're building with LEGOs, and someone already built a cool car engine. Instead of building it yourself every time, you can just use their pre-built engine! Libraries are like those pre-built parts in coding. Programmers share special sets of code that do tricky AI stuff, so you don't have to write everything from scratch.
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 28: Practice Python -->
+  <div class="slide">
+    <h2><span class="emoji">🎯</span> Let's Practice!</h2>
+    <div class="box">
+      <ul>
+        <li>Try out a few basic Python exercises from one of the online tutorials.</li>
+        <li>Write a simple program: Can you make the computer say "Hello, [Your Name]!" or do a simple math problem like 5 + 3?</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 29: Section 6 -->
+  <div class="slide">
+    <h2><span class="emoji">🌈</span> Section 6: Next Steps & Encouragement</h2>
+    <div class="box">
+      <strong>English for Daughter:</strong> You're a budding AI expert now! Keep going!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 30: Keep Exploring -->
+  <div class="slide">
+    <h2><span class="emoji">🚀</span> Keep exploring, keep creating!</h2>
+    <div class="box">
+      The world of AI is full of endless possibilities. Keep playing, keep asking questions, and keep making amazing things with AI! Your imagination is the only limit!
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 31: What's Next -->
+  <div class="slide">
+    <h2><span class="emoji">🔮</span> What's next?</h2>
+    <div class="box">
+      <ul>
+        <li>Try more advanced projects with Teachable Machine. Can you teach it to recognize different types of fruits or even your pet's barks?</li>
+        <li>Explore more simple coding games that use Python to see how you can build even more interactive things.</li>
+        <li>Talk to your dad about what you're learning! He's also exploring AI, and you can share ideas and teach each other new things!</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="next()">Next →</button>
+  </div>
+
+  <!-- Slide 32: The End -->
+  <div class="slide center">
+    <h1><span class="emoji">💖</span> Remember...</h1>
+    <div class="box">
+      AI is a tool for your imagination. Use it to create, learn, and have fun! The future is yours to build!
+    </div>
+    <button class="btn" onclick="goTo(0)">Start Again 🔄</button>
+  </div>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  function show(n) {
+    slides[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+  }
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+  function goTo(n) { show(n); }
+  // Keyboard arrows
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
