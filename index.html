@@ -37,17 +37,52 @@
     @keyframes sparkle{0%{box-shadow:0 0 0 0 #fff799aa}50%{box-shadow:0 0 18px 6px #fff79900}100%{box-shadow:0 0 0 0 #fff79900}}
     .confetti{position:fixed;width:8px;height:8px;background:var(--accent2);border-radius:50%;animation:burst 1s forwards;pointer-events:none}
     @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
+    
+    /* New styles for interactive elements */
+    .drag-container {display: flex; flex-direction: column; gap: 10px; margin: 1rem 0;}
+    .drag-item {padding: 10px; background: var(--accent4); border-radius: 8px; cursor: grab;}
+    .drag-target {min-height: 50px; border: 2px dashed var(--accent1); border-radius: 8px; padding: 10px; margin: 10px 0;}
+    .drag-over {background-color: rgba(202, 168, 245, 0.2);}
+    
+    .match-container {display: flex; flex-direction: column; gap: 15px; margin: 1.5rem 0;}
+    .match-row {display: flex; align-items: center; gap: 15px;}
+    .match-item {flex: 1; padding: 12px; background: var(--accent4); border-radius: 8px;}
+    .match-target {flex: 1; min-height: 50px; border: 2px dashed var(--accent1); border-radius: 8px; padding: 12px;}
+    
+    .icon-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 1.5rem 0;}
+    .icon-item {padding: 15px; background: #fff; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px var(--shadow); cursor: pointer; transition: all 0.3s;}
+    .icon-item:hover {transform: translateY(-5px);}
+    .icon-item.correct {background: #e6f7e6; border: 2px solid #7dd87d;}
+    .icon-item.incorrect {background: #ffe6e6; border: 2px solid #ff8e8e;}
+    .icon-item i {font-size: 2rem; margin-bottom: 10px; display: block;}
+    
+    .card-container {perspective: 1000px; margin: 1.5rem 0;}
+    .card {position: relative; width: 100%; height: 300px; transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer;}
+    .card-front, .card-back {position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-shadow: 0 4px 8px var(--shadow);}
+    .card-front {background: var(--accent3);}
+    .card-back {background: var(--accent2); color: white; transform: rotateY(180deg); text-align: center;}
+    .card.flipped {transform: rotateY(180deg);}
+    .card-img {width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid white;}
+    
+    .safety-item {margin: 1rem 0; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px var(--shadow);}
+    .safety-quiz {margin-top: 1.5rem;}
+    .safety-option {padding: 10px 15px; margin: 5px; background: var(--accent4); border-radius: 20px; cursor: pointer; display: inline-block;}
+    .safety-option:hover {background: var(--accent3);}
+    
+    .resources {display: flex; flex-wrap: wrap; gap: 15px; margin: 1.5rem 0; justify-content: center;}
+    .resource-card {flex: 1; min-width: 150px; padding: 15px; background: #fff; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px var(--shadow);}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-<div class="deck>
+<div class="deck">
 
   <!-- Slide 1: Title -->
   <div class="slide active center">
     <h1>🌸 AI Adventure Training 🌸</h1>
     <p style="font-size:1.2em;margin-top:1em">An exciting journey into Artificial Intelligence!<br/>Made for Cutieee, with love & code.</p>
-    <button class="btn" onclick="next()">Let’s Begin ✨</button>
+    <button class="btn" onclick="next()">Let's Begin ✨</button>
   </div>
 
   <!-- Slide 2: Section 1 Intro -->
@@ -78,6 +113,57 @@
         <li><strong>Problem-solving:</strong> AI can help us solve tricky puzzles and big problems, like how to make cars drive themselves safely or how to predict the weather.</li>
         <li><strong>Games:</strong> As you know, AI can help create endless virtual worlds in games like Minecraft, or make game characters smarter and more challenging. It can even beat human champions at games like Chess or Jeopardy! It's all about making things more fun and interesting!</li>
       </ul>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
+  <!-- NEW: Prompt Building Activity -->
+  <div class="slide">
+    <h2><span class="emoji">🧩</span> Build Your AI Prompt!</h2>
+    <div class="box">
+      <p>Drag and drop the sentences in the correct order to create a good AI prompt:</p>
+      
+      <div class="drag-container">
+        <div class="drag-target" id="prompt-target" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <p>Drop sentences here to build your prompt</p>
+        </div>
+        
+        <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item1">Create an image of</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item2">a magical forest with</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item3">sparkling blue trees,</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item4">flying unicorns, and</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item5">a rainbow river in the style of anime.</div>
+      </div>
+      
+      <button class="btn" onclick="checkPrompt()" style="margin-top: 15px;">Check My Prompt</button>
+      <p id="prompt-feedback" style="margin-top: 10px; font-weight: bold;"></p>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
+  <!-- NEW: Try AI Tools -->
+  <div class="slide">
+    <h2><span class="emoji">🎨</span> Try AI Tools Yourself!</h2>
+    <div class="box">
+      <p>Now that you've learned about creating good prompts, try these fun AI tools:</p>
+      
+      <div class="resources">
+        <div class="resource-card">
+          <i class="fas fa-image" style="font-size: 2.5rem; color: var(--accent1); margin-bottom: 10px;"></i>
+          <h3>EasyEdit</h3>
+          <p>Edit images with AI</p>
+          <a href="https://www.easyedit.io/" target="_blank" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Try It</a>
+        </div>
+        
+        <div class="resource-card">
+          <i class="fas fa-video" style="font-size: 2.5rem; color: var(--accent2); margin-bottom: 10px;"></i>
+          <h3>AI Video Maker</h3>
+          <p>Create videos with AI</p>
+          <a href="https://aivideomaker.ai/" target="_blank" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Try It</a>
+        </div>
+      </div>
+      
+      <p style="margin-top: 15px;"><strong>Challenge:</strong> Use EasyEdit to create a magical forest image or use AI Video Maker to create a short video about your favorite animal!</p>
     </div>
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
   </div>
@@ -146,13 +232,13 @@
   <div class="slide">
     <h2><span class="emoji">🧠</span> Quick Quiz for Cutieee</h2>
     <div class="box">
-      <p id="q1">1️⃣ What is the “stuff” AI learns from called?</p>
+      <p id="q1">1️⃣ What is the "stuff" AI learns from called?</p>
       <div class="opts">
         <button class="opt" onclick="check(this,true)">Data</button>
         <button class="opt" onclick="check(this,false)">Cookies</button>
         <button class="opt" onclick="check(this,false)">Electricity</button>
       </div>
-      <p id="q2" style="margin-top:1.2em">2️⃣ What are AI’s “secret rules” called?</p>
+      <p id="q2" style="margin-top:1.2em">2️⃣ What are AI's "secret rules" called?</p>
       <div class="opts">
         <button class="opt" onclick="check(this,false)">Riddles</button>
         <button class="opt" onclick="check(this,true)">Algorithms</button>
@@ -327,6 +413,40 @@
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
   </div>
 
+  <!-- NEW: Python Matching Game -->
+  <div class="slide">
+    <h2><span class="emoji">🎮</span> Python Command Matching Game</h2>
+    <div class="box">
+      <p>Match the Python commands with what they do:</p>
+      
+      <div class="match-container">
+        <div class="match-row">
+          <div class="match-item" draggable="true" ondragstart="drag(event)" id="py1">my_name = "Anna"</div>
+          <div class="match-target" ondrop="dropPython(event)" ondragover="allowDrop(event)" data-correct="py1">Creates a variable called my_name with value "Anna"</div>
+        </div>
+        
+        <div class="match-row">
+          <div class="match-item" draggable="true" ondragstart="drag(event)" id="py2">print("Hello!")</div>
+          <div class="match-target" ondrop="dropPython(event)" ondragover="allowDrop(event)" data-correct="py2">Displays "Hello!" on the screen</div>
+        </div>
+        
+        <div class="match-row">
+          <div class="match-item" draggable="true" ondragstart="drag(event)" id="py3">5 + 3</div>
+          <div class="match-target" ondrop="dropPython(event)" ondragover="allowDrop(event)" data-correct="py3">Adds 5 and 3 together</div>
+        </div>
+        
+        <div class="match-row">
+          <div class="match-item" draggable="true" ondragstart="drag(event)" id="py4">my_age = 12</div>
+          <div class="match-target" ondrop="dropPython(event)" ondragover="allowDrop(event)" data-correct="py4">Creates a variable called my_age with value 12</div>
+        </div>
+      </div>
+      
+      <button class="btn" onclick="checkPythonMatching()" style="margin-top: 15px;">Check My Answers</button>
+      <p id="python-feedback" style="margin-top: 10px; font-weight: bold;"></p>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
   <!-- Slide 26: First Steps -->
   <div class="slide">
     <h2><span class="emoji">👟</span> First Steps in Python</h2>
@@ -337,6 +457,31 @@
         <li><strong>Simple Commands:</strong> Like print("Hello, World!") which makes the computer say "Hello, World!"</li>
         <li><strong>Where to learn:</strong> You can find fun, beginner-friendly interactive tutorials online! Check out Codecademy Kids, Scratch, or simple Python online environments. These places let you drag and drop code or type simple commands to see what happens right away!</li>
       </ul>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
+  <!-- NEW: Interactive Python Exercise -->
+  <div class="slide">
+    <h2><span class="emoji">💡</span> Let's Code Together!</h2>
+    <div class="box">
+      <p>Try these simple Python exercises. Type your answers and see if they work!</p>
+      
+      <div class="safety-item">
+        <h3>Exercise 1: Say Hello</h3>
+        <p>Write code that displays "Hello, [Your Name]!"</p>
+        <input type="text" id="code1" placeholder='print("Hello, Cutieee!")' style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid var(--accent1); border-radius: 5px;">
+        <button class="btn" onclick="runCode(1)" style="padding: 0.4rem 0.8rem;">Run Code</button>
+        <div id="output1" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 5px; min-height: 20px;"></div>
+      </div>
+      
+      <div class="safety-item">
+        <h3>Exercise 2: Simple Math</h3>
+        <p>Write code that calculates 5 + 3 and shows the result</p>
+        <input type="text" id="code2" placeholder="print(5 + 3)" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid var(--accent1); border-radius: 5px;">
+        <button class="btn" onclick="runCode(2)" style="padding: 0.4rem 0.8rem;">Run Code</button>
+        <div id="output2" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 5px; min-height: 20px;"></div>
+      </div>
     </div>
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
   </div>
@@ -358,72 +503,214 @@
         <li>Try out a few basic Python exercises from one of the online tutorials.</li>
         <li>Write a simple program: Can you make the computer say "Hello, [Your Name]!" or do a simple math problem like 5 + 3?</li>
       </ul>
-    </div>
-    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
-  </div>
-
-  <!-- NEW SECTION 6: AI & Everyday Life -->
-  <div class="slide">
-    <h2><span class="emoji">🏠</span> AI & Everyday Life</h2>
-    <div class="box">
-      <strong>♥️</strong> Let's hunt for AI hiding in your daily routine, Smartiee!<br/>
-      - Smart-bathroom scales sending data to your phone → AI spots trends.<br/>
-      - Netflix choosing the next cartoon → AI recommends.<br/>
-      - Auto-correct finishing your words → AI predicts.<br/>
-      <strong>Quick game:</strong> Can you tap every place you think AI can manage in your house?
-    </div>
-    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
-  </div>
-
-  <!-- NEW SECTION 7: AI Artists vs Human Artists -->
-  <div class="slide">
-    <h2><span class="emoji">🎨</span> AI Artists vs Human Artists</h2>
-    <div class="box">
-      <strong>♥️</strong> Can Clever-Girl tell whether a painting was made by a person or by AI?<br/>
-      Show 4 thumbnail images (2 human, 2 AI). She clicks to vote → reveals answer + fun fact (“AI learned on 50 000 Monet paintings in 3 minutes!”).
-    </div>
-    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
-  </div>
-
-  <!-- NEW SECTION 8: Tiny Talk about Big Data -->
-  <div class="slide">
-    <h2><span class="emoji">💾</span> Tiny Talk about Big Data</h2>
-    <div class="box">
-      <strong>♥️</strong> Intelligent-Girl, let’s measure data with emojis!<br/>
-      1 GB = 1 000 cute selfies 📸<br/>
-      1 TB = 1 000 000 selfies<br/>
-      1 PB = a <em>billion</em> selfies – that’s how much data big companies train on!<br/>
-      <div style="display:flex;gap:1.2em;text-align:center;margin-top:.8em">
-        <div><div style="font-size:1.4em">1 000</div><div style="font-size:.9em;color:var(--text)">One Thousand</div></div>
-        <div><div style="font-size:1.4em">1 000 000</div><div style="font-size:.9em;color:var(--text)">One Million</div></div>
-        <div><div style="font-size:1.4em">1 000 000 000</div><div style="font-size:.9em;color:var(--text)">One Billion</div></div>
+      
+      <div class="resources">
+        <div class="resource-card">
+          <i class="fas fa-laptop-code" style="font-size: 2.5rem; color: var(--accent1); margin-bottom: 10px;"></i>
+          <h3>Codecademy</h3>
+          <p>Learn Python interactively</p>
+          <a href="https://www.codecademy.com/learn/learn-python-3" target="_blank" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Explore</a>
+        </div>
+        
+        <div class="resource-card">
+          <i class="fas fa-puzzle-piece" style="font-size: 2.5rem; color: var(--accent2); margin-bottom: 10px;"></i>
+          <h3>Scratch</h3>
+          <p>Drag-and-drop coding</p>
+          <a href="https://scratch.mit.edu/" target="_blank" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Explore</a>
+        </div>
       </div>
     </div>
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
   </div>
 
-  <!-- NEW SECTION 9: AI Safety & Privacy -->
+  <!-- NEW SECTION: AI in Everyday Life -->
   <div class="slide">
-    <h2><span class="emoji">🔐</span> AI Safety & Privacy</h2>
+    <h2><span class="emoji">🏠</span> AI in Everyday Life</h2>
     <div class="box">
-      <strong>♥️</strong> Smartiee’s secrets are precious!<br/>
-      - Why we never tell chatbots our real address or passwords.<br/>
-      - What “delete my data” means.<br/>
-      - How to spot a deep-fake video (look at blinking & ear-rings).<br/>
-      <strong>Mini-quiz:</strong> “Safe or Sorry?” – two choices, thumbs-up/down animation.
+      <strong>♥️</strong> Let's hunt for AI hiding in your daily routine, Smartiee!
+      
+      <p>AI is all around us! Here are some examples:</p>
+      <ul>
+        <li>Smart-bathroom scales sending data to your phone → AI spots trends.</li>
+        <li>Netflix choosing the next cartoon → AI recommends.</li>
+        <li>Auto-correct finishing your words → AI predicts.</li>
+      </ul>
+      
+      <div class="icon-grid">
+        <div class="icon-item correct" onclick="toggleSelection(this, true)">
+          <i class="fas fa-robot"></i>
+          <p>Voice Assistant</p>
+        </div>
+        <div class="icon-item incorrect" onclick="toggleSelection(this, false)">
+          <i class="fas fa-blender"></i>
+          <p>Blender</p>
+        </div>
+        <div class="icon-item correct" onclick="toggleSelection(this, true)">
+          <i class="fas fa-mobile-alt"></i>
+          <p>Smartphone</p>
+        </div>
+        <div class="icon-item incorrect" onclick="toggleSelection(this, false)">
+          <i class="fas fa-chair"></i>
+          <p>Chair</p>
+        </div>
+        <div class="icon-item correct" onclick="toggleSelection(this, true)">
+          <i class="fas fa-tv"></i>
+          <p>Smart TV</p>
+        </div>
+        <div class="icon-item incorrect" onclick="toggleSelection(this, false)">
+          <i class="fas fa-book"></i>
+          <p>Regular Book</p>
+        </div>
+      </div>
+      
+      <p><strong>Game:</strong> Tap on the items that use AI in your house!</p>
     </div>
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
   </div>
 
-  <!-- NEW SECTION 10: Girls Who Changed AI -->
+  <!-- NEW SECTION: AI vs Human Creativity -->
   <div class="slide">
-    <h2><span class="emoji">💪👩‍💻</span> Girls Who Changed AI</h2>
+    <h2><span class="emoji">🎨</span> AI vs Human Creativity</h2>
     <div class="box">
-      <strong>♥️</strong> Brilliant-Queens before us!<br/>
-      - <strong>Joy Buolamwini</strong> – uncovered facial-bias.<br/>
-      - <strong>Fei-Fei Li</strong> – created ImageNet.<br/>
-      - <strong>Timnit Gebru</strong> – stood up for fair AI.<br/>
-      Each card flips to show their super-power motto.
+      <strong>♥️</strong> How does AI create art differently from humans?
+      
+      <p>AI creates art by learning from thousands of examples, while humans use imagination and personal experience.</p>
+      
+      <div class="safety-item">
+        <h3>How AI Creates:</h3>
+        <ul>
+          <li>Analyzes patterns from thousands of images</li>
+          <li>Combines elements it has learned</li>
+          <li>Follows patterns and rules from its training</li>
+        </ul>
+      </div>
+      
+      <div class="safety-item">
+        <h3>How Humans Create:</h3>
+        <ul>
+          <li>Uses imagination and personal experiences</li>
+          <li>Expresses emotions and unique perspectives</li>
+          <li>Makes intentional creative choices</li>
+        </ul>
+      </div>
+      
+      <p><strong>Fun Fact:</strong> Some AI can analyze 50,000 paintings in just 3 minutes to learn different art styles!</p>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
+  <!-- NEW SECTION: Data Size Explained -->
+  <div class="slide">
+    <h2><span class="emoji">💾</span> Understanding Data Sizes</h2>
+    <div class="box">
+      <strong>♥️</strong> Let's measure data with emojis!
+      
+      <div class="safety-item">
+        <h3>1 GB = 1,000 cute selfies 📸</h3>
+        <p>That's about 1,000 photos on your phone</p>
+      </div>
+      
+      <div class="safety-item">
+        <h3>1 TB = 1,000,000 selfies</h3>
+        <p>That's like 200 DVD movies!</p>
+      </div>
+      
+      <div class="safety-item">
+        <h3>1 PB = 1,000,000,000 selfies</h3>
+        <p>That's how much data big AI companies use for training!</p>
+      </div>
+      
+      <div style="display:flex;gap:1.2em;text-align:center;margin-top:.8em">
+        <div><div style="font-size:1.4em">1,000</div><div style="font-size:.9em;color:var(--text)">One Thousand</div></div>
+        <div><div style="font-size:1.4em">1,000,000</div><div style="font-size:.9em;color:var(--text)">One Million</div></div>
+        <div><div style="font-size:1.4em">1,000,000,000</div><div style="font-size:.9em;color:var(--text)">One Billion</div></div>
+      </div>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
+  <!-- NEW SECTION: AI Safety & Privacy -->
+  <div class="slide">
+    <h2><span class="emoji">🔐</span> AI Safety & Privacy</h2>
+    <div class="box">
+      <strong>♥️</strong> Smartiee's secrets are precious!
+      
+      <div class="safety-item">
+        <h3>Why we never tell chatbots our real address or passwords</h3>
+        <p>AI chatbots can remember what you tell them, and sometimes other people might see your conversations. Always keep personal information private!</p>
+      </div>
+      
+      <div class="safety-item">
+        <h3>What "delete my data" means</h3>
+        <p>When you ask a company to delete your data, they should remove all your personal information from their systems. This helps protect your privacy.</p>
+      </div>
+      
+      <div class="safety-item">
+        <h3>How to spot a deep-fake video</h3>
+        <p>Look for unusual blinking, strange-looking ears or jewelry, and lips that don't quite match the words. If something seems "off," it might be AI-generated!</p>
+      </div>
+      
+      <div class="safety-quiz">
+        <h3>Mini-quiz: Safe or Sorry?</h3>
+        <p>Should you share your home address with a chatbot?</p>
+        <span class="safety-option" onclick="checkSafety(this, false)">Yes, it's fine</span>
+        <span class="safety-option" onclick="checkSafety(this, true)">No, keep it private</span>
+        
+        <p>Is it OK to use your pet's name as a password?</p>
+        <span class="safety-option" onclick="checkSafety(this, false)">Yes, it's easy to remember</span>
+        <span class="safety-option" onclick="checkSafety(this, true)">No, use a strong password</span>
+      </div>
+    </div>
+    <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
+  </div>
+
+  <!-- NEW SECTION: Women in AI -->
+  <div class="slide">
+    <h2><span class="emoji">💪👩‍💻</span> Amazing Women in AI</h2>
+    <div class="box">
+      <strong>♥️</strong> Brilliant women are changing the world of AI!
+      
+      <div class="card-container">
+        <div class="card" onclick="flipCard(this)">
+          <div class="card-front">
+            <img src="https://ik.imagekit.io/weo7pcw8v/%20Fei-Fei%20Li.png?updatedAt=1757018409481" alt="Fei-Fei Li" class="card-img">
+            <h3>Dr. Fei-Fei Li</h3>
+            <p>Click to learn more</p>
+          </div>
+          <div class="card-back">
+            <h3>Dr. Fei-Fei Li</h3>
+            <p>Created ImageNet, a huge database that helped teach computers how to see. She founded AI4ALL to help more young people learn about AI.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-container">
+        <div class="card" onclick="flipCard(this)">
+          <div class="card-front">
+            <img src="https://ik.imagekit.io/weo7pcw8v/Joy%20Buolamwini.png?updatedAt=1757018409626" alt="Joy Buolamwini" class="card-img">
+            <h3>Joy Buolamwini</h3>
+            <p>Click to learn more</p>
+          </div>
+          <div class="card-back">
+            <h3>Joy Buolamwini</h3>
+            <p>Discovered that facial recognition systems had trouble recognizing people with darker skin. She started the Algorithmic Justice League to fight for fair AI.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-container">
+        <div class="card" onclick="flipCard(this)">
+          <div class="card-front">
+            <img src="https://ik.imagekit.io/weo7pcw8v/Timnit%20Gebru.png?updatedAt=1757018409620" alt="Timnit Gebru" class="card-img">
+            <h3>Dr. Timnit Gebru</h3>
+            <p>Click to learn more</p>
+          </div>
+          <div class="card-back">
+            <h3>Dr. Timnit Gebru</h3>
+            <p>Works to make AI ethical and fair for everyone. She researches how to prevent AI from being biased against certain groups of people.</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
   </div>
@@ -453,7 +740,7 @@
       <ul>
         <li>Try more advanced projects with Teachable Machine. Can you teach it to recognize different types of fruits or even your pet's barks?</li>
         <li>Explore more simple coding games that use Python to see how you can build even more interactive things.</li>
-        <li>Talk to your dad about what you're learning! show him how clever you are!</li>
+        <li>Talk to your dad about what you're learning! He's also exploring AI, and you can share ideas and teach each other new things!</li>
       </ul>
     </div>
     <div class="nav"><button class="btn" onclick="prev()">← Back</button><button class="btn" onclick="next()">Next →</button></div>
@@ -505,6 +792,137 @@
       btn.parentElement.appendChild(dot);
       setTimeout(()=>dot.remove(),1000);
     }
+  }
+  
+  // New interactive functions
+  function allowDrop(ev) {
+    ev.preventDefault();
+    ev.currentTarget.classList.add('drag-over');
+  }
+  
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+  
+  function drop(ev) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('drag-over');
+    const data = ev.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(data);
+    ev.currentTarget.appendChild(draggedElement);
+  }
+  
+  function checkPrompt() {
+    const target = document.getElementById('prompt-target');
+    const children = target.children;
+    let promptText = "";
+    
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].id && children[i].id.startsWith('item')) {
+        promptText += children[i].textContent + " ";
+      }
+    }
+    
+    const feedback = document.getElementById('prompt-feedback');
+    if (promptText.trim() === "Create an image of a magical forest with sparkling blue trees, flying unicorns, and a rainbow river in the style of anime.") {
+      feedback.textContent = "Great job! That's an excellent prompt! ✨";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = "Good try! Remember: good prompts are specific and descriptive. Try again!";
+      feedback.style.color = "orange";
+    }
+  }
+  
+  function dropPython(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(data);
+    ev.currentTarget.appendChild(draggedElement);
+    
+    // Check if correct
+    if (ev.currentTarget.getAttribute('data-correct') === data) {
+      ev.currentTarget.style.backgroundColor = "#e6f7e6";
+    } else {
+      ev.currentTarget.style.backgroundColor = "#ffe6e6";
+    }
+  }
+  
+  function checkPythonMatching() {
+    const targets = document.querySelectorAll('.match-target');
+    let allCorrect = true;
+    
+    targets.forEach(target => {
+      const correctId = target.getAttribute('data-correct');
+      const hasChild = target.children.length > 0;
+      
+      if (hasChild && target.children[0].id === correctId) {
+        target.style.backgroundColor = "#e6f7e6";
+      } else {
+        target.style.backgroundColor = "#ffe6e6";
+        allCorrect = false;
+      }
+    });
+    
+    const feedback = document.getElementById('python-feedback');
+    if (allCorrect) {
+      feedback.textContent = "Excellent! You matched all Python commands correctly! 🎉";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = "Almost there! Check your answers and try again.";
+      feedback.style.color = "orange";
+    }
+  }
+  
+  function runCode(exerciseNum) {
+    const codeInput = document.getElementById(`code${exerciseNum}`);
+    const outputDiv = document.getElementById(`output${exerciseNum}`);
+    const code = codeInput.value;
+    
+    try {
+      // Simple simulation of Python execution
+      if (exerciseNum === 1) {
+        if (code.includes('print') && code.includes('Hello')) {
+          outputDiv.textContent = "Hello, Cutieee!";
+        } else {
+          outputDiv.textContent = "Try using print(\"Hello, [Your Name]!\")";
+        }
+      } else if (exerciseNum === 2) {
+        if (code.includes('print') && code.includes('5 + 3')) {
+          outputDiv.textContent = "8";
+        } else if (code.includes('5 + 3')) {
+          outputDiv.textContent = "Try adding print() around your math";
+        } else {
+          outputDiv.textContent = "Try using print(5 + 3)";
+        }
+      }
+    } catch (error) {
+      outputDiv.textContent = "Error: " + error.message;
+    }
+  }
+  
+  function toggleSelection(element, isCorrect) {
+    if (isCorrect) {
+      element.classList.toggle('correct');
+    } else {
+      element.classList.toggle('incorrect');
+    }
+  }
+  
+  function checkSafety(element, isCorrect) {
+    if (isCorrect) {
+      element.style.backgroundColor = "#e6f7e6";
+    } else {
+      element.style.backgroundColor = "#ffe6e6";
+    }
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      element.style.backgroundColor = "";
+    }, 2000);
+  }
+  
+  function flipCard(card) {
+    card.classList.toggle('flipped');
   }
 </script>
 
